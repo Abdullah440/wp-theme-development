@@ -27,3 +27,11 @@
 ├── sidebar.php
 ├── single.php
 └── style.css
+
+IMORTANT FUNCTIONS:
+    Get Theme Path:
+        get_template_directory_uri();
+        bloginfo('template_directory');
+    Get Header:
+        get_header(); // header.php
+        get_header('withName'); // header-withName.php
