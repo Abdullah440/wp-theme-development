@@ -6,8 +6,19 @@ get_header();
     .breadcrumb-area{
         margin-top: 90px;
     }
+    .flip-card-front img{
+        width: 100%;
+        height: 100%;
+    }
 </style>
+<?php
+$args = array(
+    'post_type' => 'team_members',
+    'posts_per_page' => -1 // Fetch all posts, you can set a specific number if needed
+);
+$team_members_query = new WP_Query($args);
 
+?>
         <!-- main-area -->
         <main>
             
@@ -38,7 +49,7 @@ get_header();
                               
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="<?php echo site_url(); ?>">Home</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">About</li>
                                     </ol>
                                 </nav>
@@ -130,7 +141,7 @@ get_header();
                         
                         </div>
                         <div class="col-lg-12 col-md-12 text-center">
-                            <a href="contact.html" class="btn ss-btn">Contact Us Now</a>
+                            <a href="<?php echo site_url().'/contact-us';?>" class="btn ss-btn">Contact Us Now</a>
                         </div>
                         
                        
@@ -160,71 +171,49 @@ get_header();
                          
                     </div>
                     <div class="row">
+                        <?php if ($team_members_query->have_posts()) {
+                              while ($team_members_query->have_posts()) {
+                                $team_members_query->the_post();
+                                $socialMedia = get_field('social_media');
+                                $fb_URL = $socialMedia['facebook_profile_url']['url'];
+                                $twitter_URL = $socialMedia['twitter_profile_url']['url'];
+                                $youtube_URL = $socialMedia['youtube_channel_url']['url'];
+                            ?>
                         <div class="col-lg-4 col-md-6">
                               <div class="flip-card mb-30">
                               <div class="flip-card-inner">
                                 <div class="flip-card-front">
-                                   <img src="<?=bloginfo('template_directory');?>/img/team/team_img01.png" alt="img">
+                                   <?php 
+                                   if (has_post_thumbnail()) {
+                                    $thumbnail_url = wp_get_attachment_image_src(get_post_thumbnail_id())[0];
+                                    echo '<img src="' . esc_url($thumbnail_url) . '" alt="img">';
+                                } else {
+                                    echo '<img src="' . get_template_directory_uri() . '/img/team/team_img01.png" alt="img">';
+                                }
+                                   ?>
                                 </div>
                                 <div class="flip-card-back">
                                   <div class="mt-120">
-                                        <h4><a href="team-details.html">Rosalina D. William</a></h4>
-                                        <span>Founder</span>
+                                        <h4><a href="team-details.html"><?php echo get_field('member_name'); ?></a></h4>
+                                        <span><?php echo get_field('designation'); ?></span>
                                       <div class="social">
-                                     <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                            <a href="#"><i class="fab fa-behance"></i></a>
-                                            <a href="#"><i class="fab fa-youtube"></i></a>                            
+                                            <a href="<?php echo $fb_URL;?>"><i class="fab fa-facebook"></i></a>
+                                            <a href="<?php echo $twitter_URL;?>"><i class="fab fa-twitter"></i></a>
+                                            <a href="<?php echo $youtube_URL;?>"><i class="fab fa-youtube"></i></a>                            
                                       </div>
                                     </div>
                                 </div>
                               </div>
                             </div> 
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                             <div class="flip-card mb-30">
-                              <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <img src="<?=bloginfo('template_directory');?>/img/team/team_img02.png" alt="img">
-                                </div>
-                                  <div class="flip-card-back">
-                                  <div class="mt-120">
-                                        <h4><a href="team-details.html">Alina Roboto  William</a></h4>
-                                        <span>CEO</span>
-                                      <div class="social">
-                                     <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                            <a href="#"><i class="fab fa-behance"></i></a>
-                                            <a href="#"><i class="fab fa-youtube"></i></a>                            
-                                      </div>
-                                    </div>
-                                </div>
-                               
-                              </div>
-                            </div> 
-                        </div>
-                         <div class="col-lg-4 col-md-6">
-                             <div class="flip-card mb-30">
-                              <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                      <img src="<?=bloginfo('template_directory');?>/img/team/team_img03.png" alt="img">
-                                </div>
-                                      <div class="flip-card-back">
-                                  <div class="mt-120">
-                                        <h4><a href="team-details.html">Rock Alane</a></h4>
-                                        <span>Developer</span>
-                                      <div class="social">
-                                     <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                            <a href="#"><i class="fab fa-behance"></i></a>
-                                            <a href="#"><i class="fab fa-youtube"></i></a>                            
-                                      </div>
-                                    </div>
-                                </div>
-                             
-                              </div>
-                            </div> 
-                        </div>
+                        </div>  
+                            <?php 
+                                  }
+                                  wp_reset_postdata();
+                                } else {
+                                    // No posts found
+                                    echo '<p>No team members found.</p>';
+                                }?>
+
                         
                     </div>
                 </div>
