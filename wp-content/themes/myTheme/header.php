@@ -6,7 +6,7 @@
         <title>WP Custom Theme Development</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="<?=bloginfo('template_directory');?>/img/favicon.ico">
         <!-- Place favicon.ico in the root directory -->
 
 		<!-- CSS here -->
@@ -67,15 +67,15 @@
                                 </div>
                             </div>
                            <div class="col-xl-7 col-lg-7">
-                              
                                 <div class="main-menu text-right text-xl-right">
-                                    <?php
-                                    wp_nav_menu(
-                                        array(
-                                            'theme_location' => 'primary-menu',
-                                            'menu_class' => 'nav-bar'
-                                            )
-                                    )?>
+                                    <nav id="mobile-menu">
+                                        <?php
+                                        wp_nav_menu(
+                                            array(
+                                                'theme_location' => 'primary-menu',
+                                                )
+                                        )?>
+                                    </nav>
                                 </div>
                             </div>   
                              <div class="col-xl-1 col-lg-1 text-center d-none d-lg-block mt-15 mb-15">
@@ -95,3 +95,36 @@
             </div>
         </header>
         <!-- header-end -->
+
+                <!-- offcanvas-area -->
+                <div class="offcanvas-menu">
+                <span class="menu-close"><i class="fas fa-times"></i></span>
+              <form role="search" method="get" id="searchform"   class="searchform" action="http://wordpress.zcube.in/xconsulta/">
+                                <input type="text" name="s" id="search" value="" placeholder="Search"  />
+                                <button><i class="fa fa-search"></i></button>
+                            </form>
+
+                    
+                    <div id="cssmenu3" class="menu-one-page-menu-container">
+                        <ul id="menu-one-page-menu-2" class="menu">
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="index.html">Home</a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="about.html">About Us</a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="services.html">Services</a></li>
+                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="pricing.html">Pricing </a></li>
+                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="team.html">Team </a></li>
+                             
+                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="projects.html">Gallery Study</a></li>
+                             <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="blog.html">Blog</a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>  
+                    
+                    <div id="cssmenu2" class="menu-one-page-menu-container">
+                        <ul id="menu-one-page-menu-1" class="menu">
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#home"><span>+8 12 3456897</span></a></li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#howitwork"><span>info@example.com</span></a></li>
+                        </ul>
+                    </div>                
+            </div>
+            <div class="offcanvas-overly"></div>
+                 <!-- offcanvas-end -->
