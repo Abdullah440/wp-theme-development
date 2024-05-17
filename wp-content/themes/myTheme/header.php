@@ -1,5 +1,17 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
+<?php
+        $email = get_field('email', 'option');
+        $email2 = get_field('email_2', 'option');
+        $phone1 = get_field('phone_1', 'option');
+        $phone2 = get_field('phone_2', 'option');
+        $instagram = get_field('instagram', 'option');
+        $facebook = get_field('facebook', 'option');
+        $twitter = get_field('twitter', 'option');
+        $linkedin = get_field('linkedin', 'option');
+        $address = get_field('address', 'option');
+        $footer_text = get_field('footer_text', 'option');
+        ?>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -28,27 +40,29 @@
             <div class="header-top second-header d-none d-md-block">
                 <div class="container">
                     <div class="row align-items-center">                                              
-                        <div class="col-lg-6 col-md-8 d-none  d-md-block">
+                        <div class="col-lg-8 col-md-8 d-none  d-md-block">
                             <div class="header-cta">
                                 <ul>                                   
                                     <li>
                                         <i class="fas fa-envelope"></i>
                                       
-                                        <span>info@example.com</span>
+                                        <span><?=$email?></span>
+                                        <!-- <span>abc@gmail.com</span> -->
                                     </li>
                                      <li>
                                       <i class="far fa-map-marker-alt"></i>
-                                        <span>12/7 Aabot, Poor Street, Mumbai</span>
+                                        <span><?=$address?></span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                         <div class="col-lg-6 col-md-6 d-none d-lg-block">
+                         <div class="col-lg-4 col-md-6 d-none d-lg-block">
                              <div class="header-social text-right">
                             <span>
-                                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-                                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>                               
+                                <a href="<?php echo $facebook; ?>" title="Facebook"><i class="fab fa-facebook"></i></a>
+                                <a href="<?php echo $twitter; ?>" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="<?php echo $linkedin;?>" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>  
+                                                             
                                </span>                    
                                <!--  /social media icon redux -->                               
                         </div>
@@ -128,3 +142,11 @@
             </div>
             <div class="offcanvas-overly"></div>
                  <!-- offcanvas-end -->
+                 <?php
+                 global $bannerImage;
+                 if (has_post_thumbnail()) {
+                    $bannerImage = wp_get_attachment_image_src(get_post_thumbnail_id())[0];
+                } else {
+                    $bannerImage = get_template_directory_uri()."/img/testimonial/test-bg.png";
+                    }
+                 ?>
