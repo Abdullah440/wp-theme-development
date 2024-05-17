@@ -1,7 +1,10 @@
 <?php
     //for admin menu
         register_nav_menus(
-            array('primary-menu'=>'Top Menu')
+            array(
+                'primary-menu'=>'Top Menu',
+                'footer-menu'=>'Footer Menu'
+            )
         );
     //for thumbnail image
     add_theme_support('post-thumbnails');
@@ -46,5 +49,16 @@
             $query->set('orderby', 'meta_value');
         }
     }
+    
+//CUSTOM THEME SETTING
+if( function_exists('acf_add_options_page') ) {
+    acf_add_options_page(array(
+        'page_title'    => 'Theme General Settings',
+        'menu_title'    => 'Theme Settings',
+        'menu_slug'     => 'theme-general-settings',
+        'capability'    => 'edit_posts',
+        'redirect'      => false
+    ));
+}
 
 ?>
