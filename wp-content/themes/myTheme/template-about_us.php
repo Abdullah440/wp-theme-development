@@ -17,6 +17,7 @@ $args = array(
     'posts_per_page' => -1 // Fetch all posts, you can set a specific number if needed
 );
 $team_members_query = new WP_Query($args);
+global $bannerImage;
 
 ?>
         <!-- main-area -->
@@ -38,7 +39,7 @@ $team_members_query = new WP_Query($args);
 		</div>
 		<!-- /search-popup -->
             <!-- breadcrumb-area -->
-            <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(<?=bloginfo('template_directory');?>/img/testimonial/test-bg.png)">
+            <section class="breadcrumb-area d-flex align-items-center" style="background-image:url(<?=$bannerImage?>)">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-12 col-lg-12">
