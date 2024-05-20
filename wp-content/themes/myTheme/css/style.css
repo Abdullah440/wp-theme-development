@@ -834,10 +834,10 @@ line-height: 45px;
 
 /* breadcrumb */
 .breadcrumb-area {
-background-size: cover;
+background-size: cover !important;
 position: relative;
     min-height: 400px;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat !important;
     background-position: 0 center;
     background: #444;
 }
