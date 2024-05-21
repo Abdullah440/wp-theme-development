@@ -16,8 +16,13 @@ if(!defined('ABSPATH')){
 
 class SimpleContactForm{
     public function __construct(){
+        //Create and register custom post type "simple_contact_form"
 
         add_action('init', array($this, 'create_custom_post_type'));
+        
+        //Add assets (JS, CSS and etc)
+        add_action('wp_enqueue_scripts', array($this, 'load_assets'));
+
 
     }
 
@@ -40,6 +45,26 @@ class SimpleContactForm{
 
         register_post_type('simple_contact_form', $args);
 
+    }
+
+    public function load_assets(){
+        error_log('Loading assets'); // Debug message
+
+        wp_enqueue_style(
+            'contact-form-style',
+            plugin_dir_url( __FILE__ ).'css/contact-form-style.css',
+            array(),
+            '1.0',
+            'all'
+        );
+
+        wp_enqueue_script(
+            'contact-form-style',
+            plugin_dir_url( __FILE__ ).'js/contact-form-style.js',
+            array('jquery'),
+            1,
+            true
+        );
     }
 }
 
