@@ -10,6 +10,8 @@
 /wp-content/languages
 # /wp-content/plugins
 /wp-content/plugins/index.php
+/wp-content/plugins/contact-us-form/vendor/
+/wp-content/plugins/contact-us-form/composer.lock
 /wp-content/themes/index.php
 /wp-includes/
 /index.php
