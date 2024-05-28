@@ -11,6 +11,7 @@
 # /wp-content/plugins
 /wp-content/plugins/index.php
 /wp-content/plugins/contact-us-form/vendor/
+/wp-content/plugins/spatie-ray/
 /wp-content/plugins/contact-us-form/composer.lock
 /wp-content/themes/index.php
 /wp-includes/

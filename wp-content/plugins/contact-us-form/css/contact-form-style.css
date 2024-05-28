@@ -1,5 +1,15 @@
 .custom-contactform-parent{
     border: solid #ddd 2px;
     padding: 5px;
+    text-align: center;
+}
+#submit-message-success{
     margin: 10px 0px 10px 0px;
+    text-align: center;
+    color: rgb(18, 187, 72);
+}
+#submit-message-error{
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+    color: rgb(217, 30, 30);
 }
