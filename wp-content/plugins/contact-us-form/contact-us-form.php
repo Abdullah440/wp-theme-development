@@ -43,7 +43,44 @@ if(!class_exists('SimpleContactForm')){
             //add meta boxes
             add_action('add_meta_boxes', array($this, 'create_meta_box'));
 
-            
+            //add filter for columns
+            add_filter('manage_submission_posts_columns', array($this, 'custom_submission_columns'));
+
+            //add action for fill submission columns
+            add_action('manage_submission_posts_custom_column', array($this,'fill_submission_columns'), 10, 2);
+        }
+
+        public function fill_submission_columns($column, $post_id){
+            switch ($column) {
+                case 'name':
+                    echo get_post_meta($post_id, 'name', true);
+                    break;
+                case 'phone':
+                    echo get_post_meta($post_id, 'phone', true);
+                    break;
+                case 'email':
+                    echo get_post_meta($post_id, 'email', true);
+                    break;
+                case 'message':
+                    echo get_post_meta($post_id, 'message', true);
+                    break;
+                
+                default:
+                    echo 'no data';
+                    break;
+            }
+        }
+
+        public function custom_submission_columns($columns){
+            $columns = array(
+                'cb' => $columns['cb'],
+                'name' => __('Name', 'contact-plugin'),
+                'email' => __('Email', 'contact-plugin'),
+                'phone' => __('Phone', 'contact-plugin'),
+                'message' => __('Message', 'contact-plugin'),
+            );
+            return $columns;
+
         }
 
         public function create_meta_box(){
@@ -65,6 +102,7 @@ if(!class_exists('SimpleContactForm')){
                 <strong><?=ucfirst($key)?></strong>: <?=$value[0]?><br>
             <?php }
         }
+
         public function create_submission_page(){
             $labels = array(
                 'name' => 'Submissions',
