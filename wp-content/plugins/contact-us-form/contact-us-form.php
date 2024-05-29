@@ -134,7 +134,7 @@ if(!class_exists('SimpleContactForm')){
 
             unset($post_metadata['_edit_lock']);
             foreach ($post_metadata as $key => $value) {?>
-                <strong><?=ucfirst($key)?></strong>: <?=$value[0]?><br>
+                <strong><?=esc_html(ucfirst($key))?></strong>: <?=esc_html($value[0])?><br>
             <?php }
         }
 
@@ -208,7 +208,7 @@ if(!class_exists('SimpleContactForm')){
 
             foreach($params as $label => $value){
                 $message.= '<strong>'.ucfirst($label) . ':</strong>'. $value . '</br>';
-                add_post_meta($post_id, $label, $value);
+                add_post_meta($post_id, $label, sanitize_text_field($value));
             }
             
             return new WP_REST_Response('Thank you for email', 200);
