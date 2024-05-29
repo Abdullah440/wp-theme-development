@@ -20,6 +20,7 @@ if(!class_exists('SimpleContactForm')){
             // add_action('init', array($this, 'create_custom_post_type'));
             
             define('MY_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
+            define('MY_PLUGIN_URL', plugin_dir_url( __FILE__ ));
             require_once( MY_PLUGIN_PATH . '/vendor/autoload.php');
 
         }
@@ -243,7 +244,7 @@ if(!class_exists('SimpleContactForm')){
 
             wp_enqueue_style(
                 'contact-form-style',
-                plugin_dir_url( __FILE__ ).'css/contact-form-style.css',
+                MY_PLUGIN_URL.'css/contact-form-style.css',
                 array(),
                 '1.0',
                 'all'
@@ -251,7 +252,7 @@ if(!class_exists('SimpleContactForm')){
 
             wp_enqueue_script(
                 'contact-form-style',
-                plugin_dir_url( __FILE__ ).'js/contact-form-javascript.js',
+                MY_PLUGIN_URL.'js/contact-form-javascript.js',
                 array('jquery'),
                 1,
                 true
