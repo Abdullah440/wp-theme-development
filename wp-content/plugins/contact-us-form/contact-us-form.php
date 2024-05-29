@@ -10,7 +10,7 @@
 
 // Security Layer
 if(!defined('ABSPATH')){
-    echo "access denied!";
+    echo "you cannot be here!";
     exit;
 }
 if(!class_exists('SimpleContactForm')){

@@ -1,4 +1,10 @@
 <?php
+// Security Layer
+if(!defined('ABSPATH')){
+    echo "you cannot be here!";
+    exit;
+}
+
 use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
