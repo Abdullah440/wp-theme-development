@@ -48,6 +48,40 @@ if(!class_exists('SimpleContactForm')){
 
             //add action for fill submission columns
             add_action('manage_submission_posts_custom_column', array($this,'fill_submission_columns'), 10, 2);
+
+            //setup search
+            add_action('admin_init', array($this, 'setup_search'));
+        }
+
+        public function setup_search(){
+            global $typenow;
+
+            if($typenow == 'submission'){
+                add_filter('posts_search', array($this, 'submission_search_override'), 10, 2);
+            }
+
+        }
+
+        //callback function for search_setup
+        public function submission_search_override($search, $query){
+            
+            global $wpdb;
+
+                if($query->is_main_query() && !empty($query->query['s'])){
+                    $sql = "
+                        or exists(
+                            select * from {$wpdb->postmeta} where post_id={$wpdb->posts}.ID
+                            and meta_key in ('name', 'email', 'phone')
+                            and meta_value like %s
+                        )
+                    ";
+                    $like = '%' . $wpdb->esc_like($query->query['s']) . '%';
+
+                    $search = preg_replace("#\({$wpdb->posts}.post_title LIKE [^)]+\)\K#",
+                    $wpdb->prepare($sql, $like), $search);
+                }
+
+            return $search;
         }
 
         public function fill_submission_columns($column, $post_id){
