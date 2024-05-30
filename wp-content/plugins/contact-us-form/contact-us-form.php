@@ -152,6 +152,7 @@ if(!class_exists('SimpleContactForm')){
                 'has_archive' => true,
                 'menu_position' => 40,
                 'show_in_rest' => true,
+                'publicly_queryable' => false,
                 // 'supports' => ['custom-fields'],
                 'supports' => false,
                 'menu_icon' => 'dashicons-media-text',
