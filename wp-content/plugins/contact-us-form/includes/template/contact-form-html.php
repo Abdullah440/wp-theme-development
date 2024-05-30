@@ -1,3 +1,4 @@
+<?php if(get_plugin_options('contact_form_active')):?>
 <div class="custom-contactform-parent">
     <h6 id="submit-message-success"></h6>
     <h6 id="submit-message-error"></h6>
@@ -49,3 +50,7 @@
             });
     })
 </script>
+
+<?php else:?>
+    <i> Form is not active</i>
+<?php endif;?>

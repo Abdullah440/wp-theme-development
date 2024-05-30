@@ -26,6 +26,9 @@ if(!class_exists('SimpleContactForm')){
         }
 
         public function initialize(){
+            //Utilites
+            include_once MY_PLUGIN_PATH.'/includes/utilities.php';
+            
             include_once MY_PLUGIN_PATH.'/includes/options-page.php';
 
             //Create submission page
@@ -190,7 +193,7 @@ if(!class_exists('SimpleContactForm')){
             $admin_email = get_bloginfo('admin_email');
             $admin_name = get_bloginfo('name');
 
-            $recipient_email = get_plugin_option('contact_plugin_recipients');
+            $recipient_email = get_plugin_options('contact_form_recipients');
 
             if(!$recipient_email){
                 $recipient_email = $admin_email;
@@ -234,15 +237,24 @@ if(!class_exists('SimpleContactForm')){
                 $message.= '<strong>'.ucfirst($label) . ':</strong>'. $value . '</br>';
 
             }
+
             
-            return new WP_REST_Response('Thank you for email', 200);
+            $success_message = get_plugin_options('contact_form_confirmation_message');
+            if(!$success_message){
+                $success_message = "Thank You! for contacting us";
+            }else{
+                $success_message = str_replace('{name}', $params['name'], $success_message);
+            }
+            
+            // return new WP_REST_Response($success_message, 200);
 
 
-            // // SEND EMAIL
-            // if($post_id){
-                // wp_mail($admin_email, $subject, $message, $headers);
-                //     return new WP_REST_Response('Thank you for email', 200);
-            //}
+            // SEND EMAIL
+            if($post_id){
+                wp_mail($recipient_email, $subject, $message, $headers);
+                return new WP_REST_Response($success_message, 200);
+
+            }
         }
 
         // public function create_custom_post_type(){
