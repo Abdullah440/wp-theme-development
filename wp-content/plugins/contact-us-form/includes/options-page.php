@@ -20,6 +20,7 @@ function load_carbon_fields(){
 
 function create_option_page(){
     Container::make( 'theme_options', __('Contact Form') )
+    ->set_page_menu_position(40)
     ->set_icon('dashicons-phone')
     ->add_fields( array(
         Field::make( 'checkbox', 'contact_form_active', 'Active' ),

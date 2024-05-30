@@ -150,6 +150,7 @@ if(!class_exists('SimpleContactForm')){
                 'label' => 'Submissions',
                 'public' => true,
                 'has_archive' => true,
+                'menu_position' => 40,
                 'show_in_rest' => true,
                 // 'supports' => ['custom-fields'],
                 'supports' => false,
