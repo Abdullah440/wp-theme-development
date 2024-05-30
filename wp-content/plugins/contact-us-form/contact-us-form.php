@@ -144,6 +144,7 @@ if(!class_exists('SimpleContactForm')){
             $labels = array(
                 'name' => 'Submissions',
                 'singular_name' => 'Submission',
+                'edit_item' => 'View Submission'
             );
         
             $args = array(
