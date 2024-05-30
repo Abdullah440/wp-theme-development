@@ -182,14 +182,24 @@ if(!class_exists('SimpleContactForm')){
             }
             unset($params['_wpnonce']);
             unset($params['_wp_http_referer']);
-
-            $admin_name = get_bloginfo('name');
-            $admin_email = get_bloginfo('admin_email');
-            $sender_name = $params['name'];
-
             $headers = [];
+            
+            $sender_name = sanitize_text_field($params['name']);
+            $email = sanitize_email($params['email']);
+
+            $admin_email = get_bloginfo('admin_email');
+            $admin_name = get_bloginfo('name');
+
+            $recipient_email = get_plugin_option('contact_plugin_recipients');
+
+            if(!$recipient_email){
+                $recipient_email = $admin_email;
+            }
+
+            
+
             $headers[] = "From:{$admin_name} <{$admin_email}>";
-            $headers[] = "Reply-to: {$sender_name} <{$params['email']}>";
+            $headers[] = "Reply-to: {$sender_name} <{$email}>";
             $headers[] = "Content-Type:text/html";
 
 
@@ -206,8 +216,23 @@ if(!class_exists('SimpleContactForm')){
             ]);
 
             foreach($params as $label => $value){
+                switch ($label) {
+                    case 'name':
+                        $value = add_post_meta($post_id, $label, sanitize_text_field($value));
+                        break;
+                    case 'email':
+                        $value = add_post_meta($post_id, $label, sanitize_email($value));
+                        break;
+                    case 'phone':
+                        $value = add_post_meta($post_id, $label, sanitize_text_field($value));
+                        break;
+                    case 'message':
+                        $value = add_post_meta($post_id, $label, sanitize_textarea_field($value));
+                        break;
+                }
+
                 $message.= '<strong>'.ucfirst($label) . ':</strong>'. $value . '</br>';
-                add_post_meta($post_id, $label, sanitize_text_field($value));
+
             }
             
             return new WP_REST_Response('Thank you for email', 200);
